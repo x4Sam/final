@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to my CRedditt</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f0f0f0;
+            color: #333;
+            display: flex;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .post-section {
+            margin-top: 40px;
+        }
+        .post-container {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 20px;
+            background-color: #fff;
+            text-align: left;
+        }
+        .post {
+            margin-bottom: 10px;
+        }
+        .comment-section {
+            margin-top: 10px;
+        }
+        .comment-box {
+            margin-bottom: 10px;
+        }
+        .comment {
+            border-top: 1px solid #ccc;
+            padding: 10px 0;
+            text-align: left;
+        }
+        textarea {
+            width: 100%;
+            height: 80px;
+            margin-top: 10px;
+        }
+
+        /* New Styles */
+        .side-panel {
+            width: 200px;
+            padding: 20px;
+            background-color: #007bff; /* blue */
+            color: #fff;
+        }
+        .side-panel h2 {
+            margin-top: 0;
+        }
+        .side-panel p {
+            color: #fff;
+            background-color: #87CEEB; /* light blue */
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="side-panel">
+        <h2>CSS</h2>
+        <p>Welcome to the CSS discussion!</p>
+    </div>
+
+    <div class="container">
+        <h1>Welcome to my CRedditt website</h1>
+        <p>Here you can post about your CSS problems and people can comment and help you out.</p>
+    </div>
+
+    <div class="container">
+        <h2>Post Section</h2>
+        <form id="postForm">
+            <textarea id="postContent" placeholder="Write your post..."></textarea>
+            <button type="button" onclick="submitPost()">Post</button>
+        </form>
+    </div>
+
+    <div id="posts" class="container">
+        <!-- Posts will be dynamically added here -->
+    </div>
+
+    <script>
+        function submitPost() {
+            var postContent = document.getElementById("postContent").value.trim();
+            if (postContent !== "") {
+                var postContainer = document.createElement("div");
+                postContainer.classList.add("post-container");
+                var postElement = document.createElement("div");
+                postElement.classList.add("post");
+                postElement.innerHTML = `
+                    <p>${postContent}</p>
+                `;
+                var commentBox = document.createElement("textarea");
+                commentBox.classList.add("comment-box");
+                commentBox.placeholder = "Add a comment...";
+                var submitButton = document.createElement("button");
+                submitButton.textContent = "Submit";
+                submitButton.onclick = function () {
+                    submitComment(this);
+                };
+                postContainer.appendChild(postElement);
+                postContainer.appendChild(commentBox);
+                postContainer.appendChild(submitButton);
+                document.getElementById("posts").appendChild(postContainer);
+                document.getElementById("postContent").value = "";
+            } else {
+                alert("Please enter some content.");
+            }
+        }
+
+        function submitComment(button) {
+            var commentBox = button.previousElementSibling;
+            var commentContent = commentBox.value.trim();
+            if (commentContent !== "") {
+                var commentElement = document.createElement("div");
+                commentElement.classList.add("comment");
+                commentElement.textContent = commentContent;
+                button.parentNode.appendChild(commentElement);
+                commentBox.value = "";
+            } else {
+                alert("Please enter a comment.");
+            }
+        }
+    </script>
+</body>
+</html>
